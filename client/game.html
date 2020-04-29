@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>X O</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script src="game.js"></script>
+</head>
+<body>
+    <center>
+        <div class="titlebackground"><h1>Tic Tac Toe Game</h1></div>
+        <h1 id="waiting">WAITING FOR SECOND PLAYER</h1>
+    <table>
+        <tr>
+            <td><button id="7" onclick="clicked(this.id)">  </button></td>
+            <td><button id="8" onclick="clicked(this.id)">  </buxton></td>
+            <td><button id="9" onclick="clicked(this.id)">  </button></td>
+        </tr>
+        <tr>
+            <td><button id="4" onclick="clicked(this.id)">  </button></td>
+            <td><button id="5" onclick="clicked(this.id)">  </button></td>
+            <td><button id="6" onclick="clicked(this.id)">  </button></td>
+        </tr>
+        <tr>
+            <td><button id="1" onclick="clicked(this.id)">  </button></td>
+            <td><button id="2" onclick="clicked(this.id)">  </button></td>
+            <td><button id="3" onclick="clicked(this.id)">  </button></td>
+        </tr>
+
+    </table>
+    <p id="mensaje"><strong></strong></p>
+    <button id="reset" onclick="reset()">PLAY AGAIN</button>
+    </center>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script>
+    var socket = io();
+
+    function reset() {
+        socket.emit('reset', 're');
+    }
+
+    function clicked(id) {
+        if (document.getElementById(id).textContent != 'X' && document.getElementById(id).textContent != 'O') {
+            socket.emit('marcar', id);
+        }
+    };
+
+    socket.on('xTurno', function(id){
+        placeMark(id)
+    });
+
+    socket.on('oTurno', function(id){
+        placeMark(id)
+    });
+
+    socket.on('reinicarJuego', function(id) {
+        playAgain()
+    });
+
+    socket.on('wait', function(id) {
+        document.getElementById('waiting').style.display = "block";
+    });
+
+    socket.on('start', function(id) {
+        document.getElementById('waiting').style.display = "none";
+    });
+
+    </script>
+</body>
+</html>
