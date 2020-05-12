@@ -31,7 +31,7 @@ io.on('connection', (socket) => {
     if (players == 1) {
         ids.push(socket.id)
         io.emit('wait', 'player')
-    } 
+    }
     else if (players == 2) {
         ids.push(socket.id)
         io.emit('start', 'player')

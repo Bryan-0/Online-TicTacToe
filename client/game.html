@@ -11,6 +11,7 @@
     <center>
         <div class="titlebackground"><h1>Tic Tac Toe Game</h1></div>
         <h1 id="waiting">WAITING FOR SECOND PLAYER</h1>
+    <div id="gameTable">
     <table>
         <tr>
             <td><button id="7" onclick="clicked(this.id)">  </button></td>
@@ -29,6 +30,7 @@
         </tr>
 
     </table>
+    </div>
     <p id="mensaje"><strong></strong></p>
     <button id="reset" onclick="reset()">PLAY AGAIN</button>
     </center>
@@ -61,10 +63,12 @@
 
     socket.on('wait', function(id) {
         document.getElementById('waiting').style.display = "block";
+        document.getElementById('gameTable').style.display = "none";
     });
 
     socket.on('start', function(id) {
         document.getElementById('waiting').style.display = "none";
+        document.getElementById('gameTable').style.display = "block";
     });
 
     </script>
